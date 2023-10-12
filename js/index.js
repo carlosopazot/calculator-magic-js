@@ -1,31 +1,61 @@
-let precioDolar = 850
+const user = [
+  {
+    nombre: 'User',
+    password: '1234'
+  }
+]
 
-function valor() {
-  let continuar;
-  do {
-    let valorCarta = prompt('Ingrese el precio en dólar de la carta:');
-    const precioFinal = (valorCarta * precioDolar)
-    switch (true) {
-      case precioFinal > 100000:
-        alert('El valor de tu carta es ' + precioFinal + 'CLP.  Valiosa');
-        break;
-      case precioFinal > 50000:
-        alert('El valor de tu carta es ' + precioFinal + 'CLP. Gran Valor');
-        break;
-      case precioFinal > 10000:
-        alert('El valor de tu carta es ' + precioFinal + 'CLP. Medio Valor');
-        break;
-      case precioFinal > 0:
-        alert('El valor de tu carta es ' + precioFinal + 'CLP. Poco valor');
-        break;
-      default:
-        alert('Ingresa un valor válido');
-        break;
+const cartas = [
+  {
+    nombre: 'Mana Vault',
+    precio: 34.99,
+  },
+  {
+    nombre: 'Mana Crypt',
+    precio: 64.99,
+  },
+  {
+    nombre: 'Mana Burn',
+    precio: 24.99,
+  },
+  {
+    nombre: 'Counterspell',
+    precio: 5.99,
+  },
+  {
+    nombre: 'Atraxa',
+    precio: 14.99,
+  },
+]
+
+function buscarCarta () {
+  while(true) {
+    let busqueda = prompt('Ingresa el nombre de la carta')
+    if (busqueda === null) {
+      break
     }
-    continuar = confirm('¿Desea ingresar otro valor?');
-  } while (continuar);
+    busqueda = busqueda.trim()
+
+    if (busqueda === '') {
+      alert('Campo vacío');
+      continue
+    }
+
+    const filtrarCartas = cartas.filter(carta => carta.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+
+    if(filtrarCartas.length > 0) {
+      const resultado = filtrarCartas.map(carta => `Nombre: ${carta.nombre} \nPrecio: $${carta.precio.toFixed(2)} \n------- \n`).join('\n');
+      alert('Resultados encontrados: \n' + resultado)
+    } else {
+      alert('Ningun resultado encontrado para ' + busqueda)
+    }
+
+    let buscarOtra = confirm('¿Quieres buscar otra carta?')
+    
+    if(!buscarOtra) {
+      break
+    }
+  }
 }
 
-valor()
-
-
+buscarCarta()
